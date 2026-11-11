@@ -1,0 +1,107 @@
+---
+---
+
+
+<!-- Modal de selección de idioma -->
+<div
+  id="language-modal"
+  class="fixed inset-0 z-[100001] hidden min-h-screen flex items-center justify-center bg-black/60 px-4 py-6"
+  role="dialog"
+  aria-modal="true"
+>
+  <div
+    class="w-full max-w-md rounded-2xl bg-white p-6 text-center shadow-2xl mx-auto"
+  >
+    <h2 class="text-2xl font-bold text-gray-900">Elige tu idioma</h2>
+    <p class="mt-2 text-sm text-gray-600">Select your language to continue.</p>
+    <div class="mt-6 flex flex-col gap-3 sm:flex-row sm:justify-center">
+      <button
+        type="button"
+        data-lang-modal="es"
+        class="w-full sm:w-auto rounded-full border border-gray-900 bg-gray-900 px-4 py-2 text-sm font-semibold text-white transition hover:bg-gray-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-900"
+      >
+        Español
+      </button>
+      <button
+        type="button"
+        data-lang-modal="en"
+        class="w-full sm:w-auto rounded-full border border-gray-300 px-4 py-2 text-sm font-semibold text-gray-700 transition hover:border-gray-900 hover:text-gray-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-900"
+      >
+        English
+      </button>
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+  (function () {
+    const STORAGE_KEY = 'language';
+    const ALT_STORAGE_KEY = 'site_language';
+    const safe = (fn) => { try { return fn(); } catch (e) { return null; } };
+
+    function hide(el) { if (el) el.classList.add('hidden'); }
+    function show(el) { if (el) el.classList.remove('hidden'); }
+
+    function applyLanguage(lang) {
+      document.documentElement.lang = lang;
+      safe(() => {
+        localStorage.setItem(STORAGE_KEY, lang);
+        localStorage.setItem(ALT_STORAGE_KEY, lang);
+      });
+      // If the page has a global translator, ask it to apply the language
+      safe(() => window.applyLanguage && window.applyLanguage(lang));
+    }
+
+    function init() {
+      const modal = document.getElementById('language-modal');
+      const buttons = modal?.querySelectorAll('[data-lang-modal]');
+
+      // Aplicar idioma guardado si existe (comprobar ambas claves)
+      const storedLang =
+        safe(() => localStorage.getItem(STORAGE_KEY)) ||
+        safe(() => localStorage.getItem(ALT_STORAGE_KEY));
+      
+      if (storedLang) {
+        // Si hay idioma guardado, ocultar el modal
+        hide(modal);
+        applyLanguage(storedLang);
+      } else {
+        // Solo mostrar modal si es la primera vez (sin idioma guardado)
+        // Usar setTimeout para asegurar que el modal se muestre después de que el DOM esté listo
+        setTimeout(() => {
+          show(modal);
+        }, 100);
+      }
+
+      // Manejar selección del modal
+      buttons?.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const lang = btn.getAttribute('data-lang-modal');
+          // Prefer global applyLanguage (Layout), fallback to local implementation
+          if (safe(() => typeof window.applyLanguage === 'function')) {
+            safe(() => window.applyLanguage(lang));
+            // ensure compatibility keys are set
+            safe(() => {
+              localStorage.setItem(STORAGE_KEY, lang);
+              localStorage.setItem(ALT_STORAGE_KEY, lang);
+            });
+          } else {
+            applyLanguage(lang);
+          }
+          hide(modal);
+        });
+      });
+
+      // Evitar cierre accidental por clic en el fondo
+      modal?.addEventListener('click', (e) => {
+        if (e.target === modal) e.stopPropagation();
+      });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+  })();
+</script>

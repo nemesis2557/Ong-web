@@ -1,0 +1,95 @@
+---
+import Cartas from "../components/Cartas.astro";
+import Efotos from "../components/Efotos.astro";
+import Sheader from "../components/Sheader.astro";
+import Layout from "../layouts/Layout.astro";
+import Dfooter from "../components/Dfooter.astro";
+import Contacto from "../components/Contacto.astro";
+---
+
+<Layout>
+  <div class="h-1/3">
+    <Sheader />
+  </div>
+
+  <section>
+    <article class="flex flex-col lg:flex-row min-h-screen">
+      <!-- Lado izquierdo -->
+      <div class="w-full lg:w-2/3 relative z-10 px-4 lg:px-20 pt-2">
+        <section class="py-6 lg:py-12 max-w-6xl mx-auto text-gray-800">
+          <!-- Título -->
+
+
+          <h2 class="text-3xl lg:text-4xl font-bold text-center mb-6" data-i18n="about.title">
+            Sobre Nosotros
+          </h2>
+           <article class="">
+            <img src="/fotos1/liders.jpeg" class="w-3/4 mx-auto" />
+          </article>
+          <!-- Descripción -->
+          <div class="text-base lg:text-lg leading-relaxed space-y-4 mb-12">
+            <div>
+              <!--  <h3 class="text-xl font-semibold text-gray-800">Misión</h3> -->
+               <h4 class="text-2xl font-semibold mt-4 pb-4" data-i18n="about.history.title">HISTORIA</h4>
+              <p data-i18n="about.history.body">
+             Nuestra ONG tiene sus orígenes allá por el año 2014, cuando año a año llevamos alegría a niños de zonas inhóspitas y extrema pobreza de Andahuaylas. Juguetes, shows infantiles, útiles escolares y ropa. Llegado la pandemia, nuestra labor consistió en llevar alimentos no perecibles a decenas de familias vulnerables. Luego quisimos dar el siguiente paso con la formalización de la caridad y constituir una ONG con el apoyo de Mrs. Sherlie Ann Scribner, fundadora y CEO de Children’s Fund, además Lara Costello. De esta forma, hace 3 años constituimos notarialmente nuestra ONG la misma que fue inscrita en registros públicos. Francis Tran , Yeny Salazar Menacho, Abraham Naveros Córdova, Rvdo Padre Vidal párroco de Pampachiri, la Priora Madre Ángeles de la congregación Corazón de María, y algunos laicos católicos; consolidamos las normas y cultura organizacional de nuestra ONG, teniendo como prioridad los niños, su educación, salud y nutrición como punto de partida. En Marzo del 2025 la ONG se estableció en los Estados Unidos con el apoyo del Diacono Francis Tran. Desde entonces seguimos trabajando de a poco y gracias a la donación de personas solidarias que apadrinan a más de 40 niños y niñas a quienes ayudamos mes a mes religiosamente. Agradecemos a la Hna Nélida por su colaboración con nuestra ONG.
+
+              </p>
+            </div>
+
+           <!--  <div>
+              <p>
+                Llegado la pandemia, nuestra labor consistió en llevar alimentos
+                no perecibles a decenas de familias vulnerables. Luego quisimos
+                dar el siguiente paso con la formalización, de esta forma y hace
+                3 años constituimos notarialmente nuestra ONG la misma que fue
+                inscrita en registros públicos. Con el liderazgo de la Phd Hna
+                Nelida Naveros, CPC Yeny Salazar, Ing. Abraham Naveros, párroco
+                de San jerónimo, la Priora Madre de la congregación Corazón de
+                María, y algunos laicos católicos; consolidamos las normas y
+                cultura organizacional de nuestra ONG, teniendo como prioridad
+                los niños su educación, salud y nutrición como punto de partida.
+                Desde aquel entonces y hasta hoy seguimos trabajando de a poco y
+                gracias a la donación de personas solidarias que apadrinan a mas
+                de 40 niños a quienes ayudamos mes a mes religiosamente.
+              </p>
+            </div> -->
+           
+            <h4 class="text-2xl font-semibold mt-4" data-i18n="about.goals.title">Objetivos</h4>
+            <div>
+              <p data-i18n="about.goals.body">
+                Forjar mejores oportunidades de crecimiento académico y proyecciones de vida; proveyendo a los niños y niñas herramientas básicas para una educación adecuada para el éxito, fortaleciendo la parte psicológica, valores y sostenibilidad económica de las familias beneficiadas. 
+              </p>
+            </div>
+          </div>
+
+        </section>
+          <div>
+            <h3 class="text-2xl font-semibold text-gray-800" data-i18n="about.financial.title">
+              Información Financiera
+            </h3>
+            <a
+              href="https://childrensfund.net/wp-content/uploads/2024/12/CF990_2023signedNoSchedB.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center text-blue-600 hover:text-blue-800 hover:underline font-medium transition duration-200"
+              data-i18n="about.financial.link"
+            >
+              📄 Click aquí para ver el reporte IRS más reciente
+            </a>
+          </div>
+      </div>
+
+      <!-- Lado derecho -->
+      <div
+        class="w-full lg:w-1/3 relative z-10 flex items-center justify-center"
+      >
+        <section class="w-full max-w-md px-4 py-8 text-gray-800 space-y-10">
+          <Contacto />
+        </section>
+      </div>
+    </article>
+  </section>
+
+  <Dfooter />
+</Layout>
